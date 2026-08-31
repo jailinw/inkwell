@@ -17,3 +17,7 @@ m | 3 | Backlog |
 | 3 | Backlog |
 | US-07 | As an author, I want basic analytics... | Low | 5 |
 Backlog |CS 415/515: Workshop 25
+| US-08 | As an author, I want preview a post before publishing it, so that I can check how it will look to readers. | Medium
+| 3 | Backlog | Requires the rendering of the unpublished  content in its final display format before its published and becomes publicly viewable.
+| US-09 | As a registered user I want to update my profile information, so that my name and bio stay current. | Medium
+| 3 | Backlog | Requries an editable profile form, vaildation, and database updates for user information. 
