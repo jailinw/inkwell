@@ -62,3 +62,21 @@
 ### Extensions
 - **2a.** No posts exist yet: system shows an explicit empty state, not a blank screen (a real requirement, not a cosmetic afterthought). An untested empty state is a common source of embarrassing production bugs.
 - **2b.** A requested page is beyond the available data: system returns an empty page, not an error.
+---
+## US-05: Comment on a Post
+### Overview
+- **Primary Actor:** Reader (authenticated user)
+- **Preconditions:** The reader is authenticated and the post exists in the Published state.
+- **Postconditions:** A new comment is associated with the selected post and is visible to readers of that post.
+### Main Success Scenario
+1. The reader navigates to a published post.
+2. The reader enters text into the comment field.
+3. The reader submits the comment.
+4. The system verifies that the reader is authenticated.
+5. The system validates that the comment is not empty.
+6. The system creates the comment and associates it with the reader and the post.
+7. The system displays the new comment on the post.
+### Extensions
+- **4a.** The reader is not authenticated: system rejects the comment submission and requires the reader to log in before commenting.
+- **5a.** The comment is empty: system rejects the submission and asks the reader to enter comment text.
+- **6a.** The post no longer exists or is unavailable: system rejects the comment submission and informs the reader that the post is no longer available.
