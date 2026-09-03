@@ -18,3 +18,10 @@ Errors:
 ## GET /api/posts?page=n
 Success: 200 { posts: PostPublic[], page: number, hasMore: boo
 lean }
+## POST /api/posts/:id/comments
+Request: { body: string }
+Success: 201 { comment: CommentPublic }
+Errors:
+400 EMPTY_COMMENT — "Comment cannot be empty."
+401 UNAUTHENTICATED — "You must be logged in to comment."
+404 POST_NOT_FOUND — "The requested post was not found."
