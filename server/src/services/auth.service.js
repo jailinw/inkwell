@@ -19,6 +19,14 @@ class InvalidCredentialsError extends Error {}
 
 const MIN_PASSWORD_LENGTH = 8;
 
+function toPublicUser(user) {
+  return {
+    id: user.id,
+    email: user.email,
+    displayName: user.displayName
+  };
+}
+
 export const AuthService = {
   async register({ email, displayName, password }) {
     assertNonEmpty(email, "email", "MISSING_EMAIL");
@@ -59,7 +67,7 @@ export const AuthService = {
     const tokens = TokenService.issueTokens(user);
 
     return {
-      user,
+      user: toPublicUser(user),
       ...tokens
     };
   },
@@ -83,7 +91,7 @@ export const AuthService = {
     const tokens = TokenService.issueTokens(user);
 
     return {
-      user,
+      user: toPublicUser(user),
       ...tokens
     };
   }
