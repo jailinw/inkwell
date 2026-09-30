@@ -11,5 +11,5 @@ Definition of Done: see README.md
 | US-05 | As a reader, I want to comment on a post... | Medium | 3 | Requirements Defined | See use-cases.md |
 | US-06 | As a reader, I want to follow an author... | Medium | 3 | Backlog |
 | US-07 | As an author, I want basic analytics... | Low | 5 | Requirements Defined | See use-cases.md |
-| US-08 | As an author, I want preview a post before publishing it, so that I can check how it will look to readers. | Medium | 3 | Backlog | Requires the rendering of the unpublished  content in its final display format before its published and becomes publicly viewable.
-| US-09 | As a registered user I want to update my profile information, so that my name and bio stay current. | Medium | 3 | Backlog | Requries an editable profile form, vaildation, and database updates for user information. 
+| US-08 | As an author, I want to tag my post with one or more topics, so that readers can discover it by subject. | Medium | 3 | Backlog 
+| US-09 | As a reader, I want to search posts by keyword or tag, so that I can find content relevant to me. | Medium | 3 | Backlog 

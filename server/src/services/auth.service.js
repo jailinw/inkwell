@@ -17,6 +17,7 @@ class EmailAlreadyRegisteredError extends Error {}
 class WeakPasswordError extends Error {}
 class InvalidCredentialsError extends Error {}
 
+const BCRYPT_COST_FACTOR = 10;
 const MIN_PASSWORD_LENGTH = 8;
 
 function toPublicUser(user) {
@@ -47,7 +48,10 @@ export const AuthService = {
       throw new WeakPasswordError();
     }
 
-    const passwordHash = await bcrypt.hash(password, 10);
+   const passwordHash = await bcrypt.hash(
+    password,
+    BCRYPT_COST_FACTOR
+   );
 
     let user;
 

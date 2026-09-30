@@ -3,13 +3,7 @@
 import { prisma } from "../db/client.js";
 
 export const PostRepository = {
-  create({
-    authorId,
-    title,
-    body,
-    status,
-    publishedAt
-  }) {
+  create({ authorId, title, body, status, publishedAt }) {
     return prisma.post.create({
       data: {
         authorId,
@@ -26,6 +20,42 @@ export const PostRepository = {
       where: {
         status: "PUBLISHED"
       },
+      orderBy: {
+        publishedAt: "desc"
+      },
+      skip: (page - 1) * pageSize,
+      take: pageSize + 1
+    });
+
+    const hasMore = rows.length > pageSize;
+
+    return {
+      posts: rows.slice(0, pageSize),
+      hasMore
+    };
+  },
+
+  async searchPublished({ query, page, pageSize }) {
+    const where = {
+      status: "PUBLISHED",
+      OR: [
+        {
+          title: {
+            contains: query,
+            mode: "insensitive"
+          }
+        },
+        {
+          body: {
+            contains: query,
+            mode: "insensitive"
+          }
+        }
+      ]
+    };
+
+    const rows = await prisma.post.findMany({
+      where,
       orderBy: {
         publishedAt: "desc"
       },
