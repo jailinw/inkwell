@@ -12,6 +12,7 @@ import {
 } from "../utils/validation.js";
 
 import { TokenService } from "./token.service.js";
+import { logger } from "../lib/logger.js";
 
 class EmailAlreadyRegisteredError extends Error {}
 class WeakPasswordError extends Error {}
@@ -48,10 +49,10 @@ export const AuthService = {
       throw new WeakPasswordError();
     }
 
-   const passwordHash = await bcrypt.hash(
-    password,
-    BCRYPT_COST_FACTOR
-   );
+    const passwordHash = await bcrypt.hash(
+      password,
+      BCRYPT_COST_FACTOR
+    );
 
     let user;
 
@@ -79,16 +80,22 @@ export const AuthService = {
   async login({ email, password }) {
     const user = await UserRepository.findByEmail(email);
 
-    if (!user) {
-      throw new InvalidCredentialsError();
-    }
+    // Short-circuit if the user does not exist, so bcrypt.compare
+    // only runs when there is a password hash to check.
+    if (
+      !user ||
+      !(await bcrypt.compare(password, user.passwordHash))
+    ) {
+      // Workshop 16, A09: record failed login attempts.
+      // Structured fields let monitoring tools search by event
+      // or count failed attempts for a particular email address.
+      // Never log passwords, password hashes, or tokens.
+      logger.warn(
+        { event: "auth.login.failed", email },
+        "Failed login attempt"
+      );
 
-    const matches = await bcrypt.compare(
-      password,
-      user.passwordHash
-    );
-
-    if (!matches) {
+      // Return the same error for an unknown email or wrong password.
       throw new InvalidCredentialsError();
     }
 

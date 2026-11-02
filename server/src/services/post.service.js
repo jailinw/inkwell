@@ -1,4 +1,5 @@
-// server/src/services/post.service.js
+
+ // server/src/services/post.service.js
 
 import { PostRepository } from "../repositories/post.repository.js";
 import { assertNonEmpty } from "../utils/validation.js";
@@ -71,5 +72,13 @@ export const PostService = {
       page,
       pageSize
     });
+  },
+
+  async getById(id) {
+    return PostRepository.findById(id);
+  },
+
+  async delete(id) {
+    return PostRepository.deleteById(id);
   }
 };
