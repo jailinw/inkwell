@@ -97,7 +97,8 @@ for (const viewport of viewports) {
 
           await page
             .getByRole("link", {
-              name: "Write"
+              name: "Write", 
+              exact: true
             })
             .click();
 
