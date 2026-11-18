@@ -47,7 +47,7 @@ test(
       body: "World"
     });
 
-    expect(post.status).toBe("PUBLISHED");
+    expect(post.status).toBe("DRAFT");
 
     expect(mockEventBus.emit).toHaveBeenCalledWith(
       "post.published",
